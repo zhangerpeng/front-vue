@@ -88,3 +88,101 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.css"
 ```
 
+
+## Business Implement
+### Use json-server to build the DB Server
+1. 创建数据文件
+```
+{
+  "users": [
+    {
+      "name": "何演员",
+      "phone": "51223633535",
+      "email": "7253265@qq.com",
+      "education": "本科",
+      "graduationschool": "清华大学",
+      "profession": "软件工程",
+      "profile": "清华计算机系,在校成绩优异,ACM算法大赛一等奖",
+      "id": 3
+    },
+    {
+      "name": "张晓梅",
+      "phone": "12273624215",
+      "email": "7253265@qq.com",
+      "education": "本科",
+      "graduationschool": "哈佛大学",
+      "profession": "软件工程",
+      "profile": "哈佛大学算机系,在校成绩优异,ACM算法大赛一等奖",
+      "id": 4
+    },
+    {
+      "name": "六哈哈",
+      "phone": "12273633535",
+      "email": "7253265@qq.com",
+      "education": "本科",
+      "graduationschool": "清华大学",
+      "profession": "软件工程",
+      "profile": "清华计算机系,在校成绩优异,ACM算法大赛一等奖",
+      "id": 5
+    },
+    {
+      "name": "杨科",
+      "phone": "17636355254",
+      "email": "7125372@qq.com",
+      "education": "研究生",
+      "graduationschool": "江南大学",
+      "profession": "影视传媒",
+      "profile": "影视传媒第一人",
+      "id": 7
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "name": "阿里巴巴",
+      "description": "互联网"
+    },
+    {
+      "id": 2,
+      "name": "腾讯",
+      "description": "互联网"
+    },
+    {
+      "id": 3,
+      "name": "恒大集团",
+      "description": "房地产"
+    },
+    {
+      "id": 4,
+      "name": "碧桂园",
+      "description": "房地产"
+    }
+  ]
+}
+```
+2. 安装json-server 依赖
+```
+npm install -g json-server
+
+```
+3. 启动db服务
+```
+ json-server --watch --port 3000 generation.json
+
+```
+
+## 构建Vue组建
+### HomeView
+
+
+### 问题
+* 在定义routes 时，导入HomeView 提示找不到模块../views/HomeView.vue
+解决方案：
+  1. 在src 目录下创建 .d.ts结尾的文件，如vue.d.ts  或  shime.d.ts  等均可。
+  2. 添加下边内容至1创建的文件中
+       ```
+        declare module "*.vue" {
+        import Vue from "@/vue";
+        export default Vue;
+        }
+      ```
