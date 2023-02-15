@@ -1,26 +1,29 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <div class="container py-4 px-3 mx-auto">
-    <h1>Hello, Bootstrap and Vite!</h1>
-    <button class="btn btn-secondary">Primary button</button>
-  </div>
-  <HelloWorld msg="Vite + Vue" />
+  <div class="c-app-container">
+   <div class="c-app-header">
+     <nav style="--bs-breadcrumb-divider: '|';" aria-label="breadcrumb">
+       <ol class="breadcrumb" style="--bs-breadcrumb-margin-bottom:0">
+         <li class="breadcrumb-item" ><router-link to="/home">HOME</router-link></li>
+         <li class="breadcrumb-item"><router-link to="/create">MAIN PAGE</router-link></li>
+         <li class="breadcrumb-item active"><router-link to="/">ABOUT US</router-link></li>
+       </ol>
+     </nav>
+     <button class="btn btn-outline-success">CREATE USER</button>
+   </div>
+    <router-view></router-view>
+   </div>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+.c-app-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 3.4rem;
+  background: lightgray;
 }
 </style>
