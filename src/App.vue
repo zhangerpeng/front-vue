@@ -11,7 +11,7 @@
          <li class="breadcrumb-item active"><router-link to="/">ABOUT US</router-link></li>
        </ol>
      </nav>
-     <button class="btn btn-outline-success">CREATE USER</button>
+     <router-link to="/create" class="btn btn-outline-success">CREATE USER</router-link>
    </div>
     <router-view></router-view>
    </div>
