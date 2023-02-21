@@ -180,9 +180,21 @@ npm install -g json-server
 解决方案：
   1. 在src 目录下创建 .d.ts结尾的文件，如vue.d.ts  或  shime.d.ts  等均可。
   2. 添加下边内容至1创建的文件中
-       ```
-        declare module "*.vue" {
-        import Vue from "@/vue";
-        export default Vue;
-        }
-      ```
+
+```
+declare module "*.vue" {
+import Vue from "@/vue";
+export default Vue;
+}         
+```
+3. 在函数定义外初始化的 route 无效
+
+```
+# 报错，route is undefine,the reason need to Analyzes
+const route= useRoute();
+async mounted() {
+    const res = await axios.get("http://localhost:3000/users/" + route.params.id )
+    user.value = res.data;
+  },
+```
+
