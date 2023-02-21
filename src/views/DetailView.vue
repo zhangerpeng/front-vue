@@ -3,7 +3,7 @@
     <div class="c-detail-view-header">
       <router-link class="btn btn-success" to="/home">返回</router-link>
       <div class="c-detail-view-ed-de">
-        <router-link class="btn btn-primary" to="" style="margin-right: 2rem">编辑</router-link>
+        <router-link class="btn btn-primary" :to="'/edit/'+ route.params.id" style="margin-right: 2rem">编辑</router-link>
         <button class="btn btn-danger" @click="delteUser()">删除</button>
       </div>
     </div>
@@ -32,7 +32,7 @@ const router = useRouter();
 const user = ref<IUser>({
   name: "",
   phone: "",
-  emial: "",
+  email: "",
   education: "",
   graduationschool: "",
   profession: "",

@@ -1,7 +1,7 @@
 export interface IUser{
     name:string,
     phone:string,
-    emial:string,
+    email:string,
     education:string,
     graduationschool:string,
     profession:string,
