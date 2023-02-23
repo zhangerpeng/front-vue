@@ -9,6 +9,7 @@
          <li class="breadcrumb-item" ><router-link to="/home">HOME</router-link></li>
          <li class="breadcrumb-item"><router-link to="/create">MAIN PAGE</router-link></li>
          <li class="breadcrumb-item active"><router-link to="/">ABOUT US</router-link></li>
+         <li class="breadcrumb-item active"><router-link to="/book">BOOK</router-link></li>
        </ol>
      </nav>
      <router-link to="/create" class="btn btn-outline-success">CREATE USER</router-link>

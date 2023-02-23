@@ -1,197 +1,120 @@
-# Vue 3 + TypeScript + Vite
-
-This template should help get you started developing with Vue 3 and TypeScript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
-
-## Recommended IDE Setup
-
-- [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur) + [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin).
-
-## Type Support For `.vue` Imports in TS
-
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [TypeScript Vue Plugin (Volar)](https://marketplace.visualstudio.com/items?itemName=Vue.vscode-typescript-vue-plugin) to make the TypeScript language service aware of `.vue` types.
-
-If the standalone TypeScript plugin doesn't feel fast enough to you, Volar has also implemented a [Take Over Mode](https://github.com/johnsoncodehk/volar/discussions/471#discussioncomment-1361669) that is more performant. You can enable it by the following steps:
-
-1. Disable the built-in TypeScript Extension
-   1. Run `Extensions: Show Built-in Extensions` from VSCode's command palette
-   2. Find `TypeScript and JavaScript Language Features`, right click and select `Disable (Workspace)`
-2. Reload the VSCode window by running `Developer: Reload Window` from the command palette.
-
-
-## Vue 项目构建【Vite 需要node version>12.0】
-### Vite 是一个web 项目开发构建工具，由其原生的的ES模块导入。快速的热冷启动
-```
-npm init vite@latest project-name --template vue
-```
-
-### 安装初始依赖
-```
-cd project-name
-# 安装项目依赖
-npm install 
-npm run dev
-```
-
-### 添加相关插件
-1. axios 
-```
-npm install axios
-```
-安装成功后，文件package.json 的dependencies 项目中存在axios
-
-2. vue-router
-```
-npm install vue-router@next
+# Front knowledge
+## VUE
+### 组建通信
+1. 父组件->子组件\
+1.1. 父组件通过将数据绑定到子组件的props属性上进行数据的有效传递。\
 
 ```
-安装成功后，文件package.json 的dependencies 项目中存在vue-router
-3. less 【less 是css的预处理语言，其对于css进行了有效的扩充，增加了变量，函数等功能】
+// 子组件的TEMPLATE PART
+<template>
+<div class="child-container">
+    <li class="list-group-item">{{ book.name }}</li>
+    <li class="list-group-item">{{ book.author }}</li>
+</div>
+</template>
 ```
-npm install less -D
 
 ```
-4. 若项目在创建过程中未及时选中其typescript 选项，可使用命令安装开发插件
-```
-npm install typescript -D
-```
-并需要将`vite.config.js` 文件变更为 `vite.config.ts`
-```
-import { UserConfig } from 'vite'
-const path = require('path')
-import vue from '@vitejs/plugin-vue'
-
-const config: UserConfig = {
-  plugins: [vue()],
-  optimizeDeps: {
-    include: [ 'axios' ]
+// 子组件声明属性JS PART
+export default defineComponent({
+  // 启用了类型推导
+  name:"BookComponent",
+  props: {
+    // 解决错误提示 book need a type not a value.使用as进行转化
+    book: Object as PropType<IBook>
   },
-  resolve: {
-    alias: {
-    '/@': path.resolve( __dirname, './src' )
-    },
-  },
+})
+```
+
+父组件中，通过将数据绑定到子组件的属性book上实现数据的传输
+```
+// JS part
+// 要传递给子组件的数据
+const bookList: IBook[] = [{
+  id:0,
+  name: "数学",
+  author: "于海"
+}, {
+  id:1,
+  name: "语文",
+  author: "余华"
 }
+]
 
-export default config
-```
-
-5. 集成boostrap5.xx 
-```
-npm i --save bootstrap @popperjs/core
-npm i --save-dev sass
-npm i bootstrap-icons
-```
-
-5.1. main.ts 文件中导入
-```
-import "bootstrap";
-import "bootstrap/dist/css/bootstrap.css"
-```
-
-
-## Business Implement
-### Use json-server to build the DB Server
-1. 创建数据文件
-```
-{
-  "users": [
-    {
-      "name": "何演员",
-      "phone": "51223633535",
-      "email": "7253265@qq.com",
-      "education": "本科",
-      "graduationschool": "清华大学",
-      "profession": "软件工程",
-      "profile": "清华计算机系,在校成绩优异,ACM算法大赛一等奖",
-      "id": 3
-    },
-    {
-      "name": "张晓梅",
-      "phone": "12273624215",
-      "email": "7253265@qq.com",
-      "education": "本科",
-      "graduationschool": "哈佛大学",
-      "profession": "软件工程",
-      "profile": "哈佛大学算机系,在校成绩优异,ACM算法大赛一等奖",
-      "id": 4
-    },
-    {
-      "name": "六哈哈",
-      "phone": "12273633535",
-      "email": "7253265@qq.com",
-      "education": "本科",
-      "graduationschool": "清华大学",
-      "profession": "软件工程",
-      "profile": "清华计算机系,在校成绩优异,ACM算法大赛一等奖",
-      "id": 5
-    },
-    {
-      "name": "杨科",
-      "phone": "17636355254",
-      "email": "7125372@qq.com",
-      "education": "研究生",
-      "graduationschool": "江南大学",
-      "profession": "影视传媒",
-      "profile": "影视传媒第一人",
-      "id": 7
-    }
-  ],
-  "companies": [
-    {
-      "id": 1,
-      "name": "阿里巴巴",
-      "description": "互联网"
-    },
-    {
-      "id": 2,
-      "name": "腾讯",
-      "description": "互联网"
-    },
-    {
-      "id": 3,
-      "name": "恒大集团",
-      "description": "房地产"
-    },
-    {
-      "id": 4,
-      "name": "碧桂园",
-      "description": "房地产"
-    }
-  ]
-}
-```
-2. 安装json-server 依赖
-```
-npm install -g json-server
-
-```
-3. 启动db服务
-```
- json-server --watch --port 3000 generation.json
-
-```
-
-## 构建Vue组建
-### HomeView
-### 问题
-* 在定义routes 时，导入HomeView 提示找不到模块../views/HomeView.vue
-解决方案：
-  1. 在src 目录下创建 .d.ts结尾的文件，如vue.d.ts  或  shime.d.ts  等均可。
-  2. 添加下边内容至1创建的文件中
-
-```
-declare module "*.vue" {
-import Vue from "@/vue";
-export default Vue;
-}         
-```
-3. 在函数定义外初始化的 route 无效
-
-```
-# 报错，route is undefine,the reason need to Analyzes
-const route= useRoute();
-async mounted() {
-    const res = await axios.get("http://localhost:3000/users/" + route.params.id )
-    user.value = res.data;
+export default defineComponent({
+  // 启用了类型推导
+  name: "BooksComponent",
+  data() {
+     return {
+       bookList
+     }
   },
+  components:{
+   // 局部组件注册
+    BookComponent
+  }
+})
 ```
+
+
+```
+// template part 
+<template>
+<div class="c-books-container">
+  <ul class="list-group" v-for="book in bookList" :key="book.id">
+     // 绑定子组件的：book 属性进行数据传输
+    <BookComponent :book="book"></BookComponent>
+  </ul>
+</div>
+</template>
+
+```
+2. 子组件-》父组件
+子组件向父组件的消息传递，依赖子组件触发父组件中的方法句柄，而后进行数据的有效传输。\
+key thing: 在子组件中使用this.emit('父组件的绑定事件'，'要传递的数据信息')
+```
+// 子组件中,点击按钮时间触发方法changeMessage,从而父组件的changeMsg绑定事件从而触发其绑定的方法
+<button @click="createNewBook">ChangeMessage</button>
+
+methods:{
+    changeMessage() {
+      this.$emit("changeMsg","this message from child component")
+    }
+  }
+```
+
+```
+// 父组件中的@changMsg，从而调用方法 msgChangByChild
+<h1>{{msg}}</h1>
+ <ul class="list-group" v-for="book in bookList" :key="book.id">
+    <BookComponent :book="book" @changeMsg="msgChangByChild"></BookComponent>
+ </ul>
+ 
+ methods:{
+    msgChangByChild(cmsg:string){
+       this.msg = cmsg;
+    }
+  },
+ 
+ 
+```
+
+
+
+
+
+3. v-for中：key 的作用
+在使用v-for进行的数据渲染中，如果有数据发生变更， 
+则dom 的底层算法可以确保通过数据列表的key快速定位数据，
+只重新渲染变更数据。而不必进行全量的对比判断.
+
+4. SSR与CSR 服务器端的渲染与客户端端的渲染\
+4.1. SSR【serve-side-render】
+服务器端直接返回一个完整的HTML 给前端浏览器进行解析。
+页面上的任何变更都是需要与后台进行交互，从而响应变更。
+极大增加了服务器端的压力。同时，因需要传输完整的页面，也加大了网络负载。\
+4.2. CSR [client-side-render] 
+客户端渲染，就是通过js的方式，当页面状态信息发生变更时，
+由客户端进行diff比较，只重新渲染器变更点内容从而减轻服务端的压力。\
+[SSR-CSR](https://zhuanlan.zhihu.com/p/60975107)
+
