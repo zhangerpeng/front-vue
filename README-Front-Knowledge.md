@@ -195,7 +195,3 @@ async mounted() {
     user.value = res.data;
   },
 ```
-
-4. 关于JS中阻止默认事件-Submit.prevent
-5. JS语法中的解构
-6. JS中的闭包
