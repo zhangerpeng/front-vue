@@ -20,6 +20,11 @@ const routes: Array<RouteRecordRaw> = [
         path: "/edit/:id",
         name: "user-edit",
         component: () => import("../views/EditView.vue")
+    },
+    {
+        path: "/book",
+        name: "book",
+        component: () => import("../components-communication/BooksComponent.vue")
     }
 ]
 

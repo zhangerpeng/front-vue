@@ -173,8 +173,6 @@ npm install -g json-server
 
 ## 构建Vue组建
 ### HomeView
-
-
 ### 问题
 * 在定义routes 时，导入HomeView 提示找不到模块../views/HomeView.vue
 解决方案：
@@ -197,6 +195,7 @@ async mounted() {
     user.value = res.data;
   },
 ```
+
 4. 关于JS中阻止默认事件-Submit.prevent
 5. JS语法中的解构
 6. JS中的闭包
